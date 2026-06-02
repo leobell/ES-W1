@@ -1,0 +1,25 @@
+info:
+  name: postAuthor
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:9874/authors
+  body:
+    type: json
+    data: |-
+      {
+        "name": "marco",
+        "surname": "fiori",
+        "email": "marco.fiori@gmail.com",
+        "birthDate": "06-01-2003",
+        "avatar": "nah non serve"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
