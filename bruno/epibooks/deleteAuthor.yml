@@ -1,0 +1,15 @@
+info:
+  name: deleteAuthor
+  type: http
+
+http:
+  method: DELETE
+  url: http://localhost:9874/authors/6a1ebb50c57adb2683f1f5a8
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+​

@@ -4,9 +4,10 @@ const authorController = require('./authors.controller')
 
 
 authors.get('/authors', authorController.getAuthors)
+authors.get('/authors/:id', authorController.getAuthor)
 authors.post('/authors', authorController.createAuthor)
-
-
+authors.patch('/authors/:id', authorController.updateAuthor)
+authors.delete('/authors/:id', authorController.deleteAuthor)
 
 
 module.exports = authors
