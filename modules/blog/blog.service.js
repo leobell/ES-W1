@@ -1,7 +1,20 @@
 const BlogSchema = require('./blog.schema')
 
-const getAllBlog = async () => {
-    return BlogSchema.find()
+const getAllBlog = async (page, pageSize) => {
+    const blogPosts = await BlogSchema.find()
+        .limit(pageSize)
+        .skip((page - 1) * pageSize)
+    
+    const totalBlogs = await BlogSchema.countDocuments()
+    const totalPages = Math.ceil(totalBlogs/pageSize)
+
+    return {
+        page: Number(page),
+        pageSize: Number(pageSize),
+        totalBlogs,
+        totalPages,
+        blogPosts
+    }
 }
 
 const getOneBlogPost = async (id) => {

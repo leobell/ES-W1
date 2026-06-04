@@ -2,7 +2,12 @@ const authorService = require('./authors.service')
 
 const getAuthors = async (request, response) => {
     try {
-        const authors = await authorService.getAuthors()
+        const { page = 1, pageSize = 3} = request.query
+        const {
+            totalAuthors,
+            totalPages,
+            authors
+        } = await authorService.getAuthors(page, pageSize)
         if (!authors) {
             return response.status(404)
                 .send({
@@ -13,6 +18,10 @@ const getAuthors = async (request, response) => {
         response.status(200)
             .send({
                 statusCode: 200,
+                page: Number(page),
+                pageSize: Number(pageSize),
+                totalAuthors,
+                totalPages,
                 authors
             })
     } catch (error) {

@@ -2,9 +2,15 @@ const blogService = require('./blog.service')
 
 const getAllBlog = async (req, res) => {
     try {
-        const allBlog = await blogService.getAllBlog()
 
-        if(!allBlog){
+        const { page = 1, pageSize = 3 } = req.query
+        const {
+            totalBlogs, 
+            totalPages, 
+            blogPosts
+        } = await blogService.getAllBlog(page, pageSize)
+
+        if(!blogPosts){
             return res.status(404)
                 .send({
                     statusCode: 404,
@@ -15,9 +21,14 @@ const getAllBlog = async (req, res) => {
         res.status(200)
             .send({
                 statusCode: 200,
-                allBlog
+                totalPages,
+                totalBlogs,
+                page: Number(page),
+                pageSize: Number(pageSize),
+                blogPosts
             })
     } catch (error) {
+        console.log(error)
         res.status(500)
             .send({
                 statusCode: 500,
