@@ -26,8 +26,8 @@ const getAuthors = async (request, response) => {
 
 const getAuthor = async (request, response) => {
     try {
-        idAuthor = request.params.id
-        const author = await authorService.getAuthor(idAuthor)
+        const { id } = request.params
+        const author = await authorService.getAuthor(id)
         if (!author) {
             return response.status(404)
                 .send({
