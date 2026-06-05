@@ -4,7 +4,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:9874/authors
+  url: ""
   auth: inherit
 
 settings:
@@ -12,3 +12,4 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+​
