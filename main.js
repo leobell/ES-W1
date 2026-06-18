@@ -1,4 +1,8 @@
 const express = require('express')
+const cors = require('cors')
+const logger = require('./middlewares/logger')
+const errorHandler = require('./middlewares/errors/errorHandler')
+const path = require('path')
 const startServer = require('./config/db')
 const dns = require('node:dns')
 dns.setServers(['1.1.1.1', '1.0.0.1']) 
@@ -8,8 +12,14 @@ const authorsRoute = require('./modules/authors/authors.route')
 const blogRoute = require('./modules/blog/blog.route')
 const server = express()
 server.use(express.json())
+server.use(logger)
+
+server.use(cors())
+server.use('/upload',express.static(path.join(__dirname, 'upload')))
 
 server.use('/', authorsRoute)
 server.use('/', blogRoute)
+
+server.use(errorHandler)
 
 startServer(PORT, server)

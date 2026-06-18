@@ -1,5 +1,6 @@
 const blogService = require('./blog.service')
-
+const BlogPostNotFoundException = require('../../exceptions/blog/blogNotFound')
+const { sendNewPostEmail } = require('../email/mailService')
 const getAllBlog = async (req, res) => {
     try {
 
@@ -69,6 +70,7 @@ const createBlogPost = async (req, res) => {
         const { body } = req
         const newBlogPost = await blogService.createBlogPost(body)
 
+        sendNewPostEmail(newBlogPost.author, newBlogPost.author)
         res.status(201)
             .send({
                 statusCode: 201,
@@ -139,10 +141,42 @@ const deleteBlogPost = async (req, res) => {
     }
 }
 
+const uploadFileOnCloud = async (req, res, next) => {
+    try{
+        const idPost = req.params.blogPostId
+        
+        if (!req.file){
+            return res.status(400)
+                .json({
+                    statusCode:400,
+                    message:'file upload unsuccessfully'
+                })
+        }
+
+        const coverUrl = req.file.path
+        const blogPostUpdated = await blogService.updateBlogPost(idPost, { cover: coverUrl })
+
+        if(!blogPostUpdated){
+            throw new BlogPostNotFoundException()
+        }
+
+        res.status(200)
+            .json({
+                statusCode: 200,
+                message: 'cover updated successfully',
+                cover: coverUrl,
+                blogPostUpdated
+            })
+    } catch(e) {
+        next(e)
+    }
+}
+
 module.exports = {
     getAllBlog,
     getOneBlogPost,
     createBlogPost,
     updateBlogPost,
-    deleteBlogPost
+    deleteBlogPost,
+    uploadFileOnCloud
 }

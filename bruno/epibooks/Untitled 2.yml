@@ -1,0 +1,22 @@
+info:
+  name: Untitled 2
+  type: http
+  seq: 5
+
+http:
+  method: PATCH
+  url: http://localhost:9874/blogPosts/6a20220518ba93d767c7711c/cover
+  body:
+    type: multipart-form
+    data:
+      - name: cover
+        type: file
+        value:
+          - C:\Users\User\Pictures\Screenshots\Screenshot (2).png
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

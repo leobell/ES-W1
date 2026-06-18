@@ -1,0 +1,22 @@
+info:
+  name: Untitled
+  type: http
+  seq: 1
+
+http:
+  method: PATCH
+  url: http://localhost:9874/authors/6a21af0df392f094e709818e/avatar
+  body:
+    type: multipart-form
+    data:
+      - name: avatar
+        type: file
+        value:
+          - C:\Users\User\Pictures\Saved Pictures\th.jpeg
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

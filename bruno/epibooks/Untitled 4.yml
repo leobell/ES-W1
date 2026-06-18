@@ -1,0 +1,29 @@
+info:
+  name: Untitled 4
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: http://localhost:9874/blogPosts
+  body:
+    type: json
+    data: |-
+      {
+        "category": "Programmazione",
+        "title": "Guida pratica a Node.js e Express per principianti",
+        "cover": "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
+        "readTime": {
+          "value": 180,
+          "unit": "seconds"
+        },
+        "author": "Leonardo Bell",
+        "content": "In questo articolo esploreremo come configurare un server backend minimale utilizzando Node.js ed Express, gestendo le rotte principali e i middleware di sicurezza."
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
