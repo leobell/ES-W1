@@ -10,6 +10,7 @@ const PORT = 9874
 
 const authorsRoute = require('./modules/authors/authors.route')
 const blogRoute = require('./modules/blog/blog.route')
+const commentsRoute = require('./modules/comments/comments.route')
 const server = express()
 server.use(express.json())
 server.use(logger)
@@ -19,6 +20,7 @@ server.use('/upload',express.static(path.join(__dirname, 'upload')))
 
 server.use('/', authorsRoute)
 server.use('/', blogRoute)
+server.use('/', commentsRoute)
 
 server.use(errorHandler)
 

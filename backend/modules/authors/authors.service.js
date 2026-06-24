@@ -4,6 +4,7 @@ const getAuthors = async (page, pageSize) => {
     const authors = await AuthorSchema.find()
         .limit(pageSize)
         .skip((page - 1) * pageSize)
+        .populate('posts','category title')
 
     const totalAuthors = await AuthorSchema.countDocuments()
     const totalPages = Math.ceil(totalAuthors/pageSize)
@@ -18,7 +19,7 @@ const getAuthors = async (page, pageSize) => {
 }
 
 const getAuthor = async (id) => {
-    return await AuthorSchema.findById(id)
+    return await AuthorSchema.findById(id).populate('posts','category title')
 }
 
 const createAuthor = async (body) => {

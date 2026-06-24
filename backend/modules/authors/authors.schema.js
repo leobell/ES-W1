@@ -25,7 +25,16 @@ const Author = new mongoose.Schema({
     avatar: {
         type: String,
         required: true
+    },
+    posts: {
+        type: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Blog'
+            }
+        ],
+        default: []
     }
 }, { strict:true })
 
-module.exports = mongoose.model('author', Author, 'authors')
+module.exports = mongoose.model('Author', Author, 'authors')

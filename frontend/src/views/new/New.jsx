@@ -1,18 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 import "./styles.css";
-import {convertToRaw} from "draft-js"
-import draftToHtml from "draftjs-to-html"
+
 const NewBlogPost = props => {
+
   const [text, setText] = useState("");
-  const handleChange = useCallback(value => {
-    
-    setText(draftToHtml(value));
-    console.log(text)
-    // console.log(convertToRaw(value.getCurrentContent()))
-  });
+
   return (
     <Container className="new-blog-container">
       <Form className="mt-5">
@@ -20,6 +15,7 @@ const NewBlogPost = props => {
           <Form.Label>Titolo</Form.Label>
           <Form.Control size="lg" placeholder="Title" />
         </Form.Group>
+        
         <Form.Group controlId="blog-category" className="mt-3">
           <Form.Label>Categoria</Form.Label>
           <Form.Control size="lg" as="select">
@@ -30,11 +26,17 @@ const NewBlogPost = props => {
             <option>Categoria 5</option>
           </Form.Control>
         </Form.Group>
+        
         <Form.Group controlId="blog-content" className="mt-3">
           <Form.Label>Contenuto Blog</Form.Label>
 
-          <Editor value={text} onChange={handleChange} className="new-blog-content" />
+          <ReactQuill 
+            theme="snow"
+            value={text} 
+            onChange={setText} 
+          />
         </Form.Group>
+        
         <Form.Group className="d-flex mt-3 justify-content-end">
           <Button type="reset" size="lg" variant="outline-dark">
             Reset

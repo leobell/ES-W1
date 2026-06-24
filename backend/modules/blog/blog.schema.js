@@ -20,13 +20,20 @@ const BlogSchema = new mongoose.Schema({
         }
     },
     author: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Author'
     },
     content: {
         type: String,
         required: true
-    }
+    },
+    comment: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment',
+            default: []
+        }
+    ]
 }, { strict: true })
 
 module.exports = mongoose.model('Blog', BlogSchema)

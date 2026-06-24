@@ -1,9 +1,11 @@
 const BlogSchema = require('./blog.schema')
+const AuthorSchema = require('../authors/authors.schema')
 
 const getAllBlog = async (page, pageSize) => {
     const blogPosts = await BlogSchema.find()
         .limit(pageSize)
         .skip((page - 1) * pageSize)
+        .populate('author','name surname email')
     
     const totalBlogs = await BlogSchema.countDocuments()
     const totalPages = Math.ceil(totalBlogs/pageSize)
@@ -18,12 +20,19 @@ const getAllBlog = async (page, pageSize) => {
 }
 
 const getOneBlogPost = async (id) => {
-    return BlogSchema.findById(id)
+    return BlogSchema.findById(id).populate('author','name surname email')
 }
 
 const createBlogPost = async (body) => {
     const newBlogPost = new BlogSchema(body)
-    return newBlogPost.save()
+    const blogSaved = await newBlogPost.save()
+    
+    await AuthorSchema.updateOne(
+        { _id:body.author},
+        {$push:{posts:blogSaved}}
+    )
+
+    return blogSaved
 }
 
 const updateBlogPost = async (id, body) => {
@@ -31,7 +40,19 @@ const updateBlogPost = async (id, body) => {
 }
 
 const deleteBlogPost = async (id) => {
-    return BlogSchema.findByIdAndDelete(id)
+    const blogDeleted = await BlogSchema.findById(id)
+
+    if(!blogDeleted){
+        return null
+    }
+
+    await BlogSchema.findByIdAndDelete(id)
+    await AuthorSchema.updateOne(
+        {_id:blogDeleted.author},
+        {$pull:{posts:id}}
+    )
+
+    return blogDeleted
 }
 
 module.exports = {

@@ -44,11 +44,7 @@ const getOneBlogPost = async (req, res) => {
         const oneBlog = await blogService.getOneBlogPost(id)
 
         if(!oneBlog){
-            return res.status(404)
-                .send({
-                    statusCode: 404,
-                    message:'blog not found'
-                })
+            throw new BlogPostNotFoundException()
         }
 
         res.status(200)
@@ -93,11 +89,7 @@ const updateBlogPost = async (req, res) => {
         const blogPostUpdated = await blogService.updateBlogPost(id, body)
 
         if (!blogPostUpdated) {
-            return res.status(404)
-                .send({
-                    statusCode:404,
-                    message: 'Blog post not found'
-                })
+            throw new BlogPostNotFoundException()
         }
         res.status(200)
             .send({
@@ -119,11 +111,7 @@ const deleteBlogPost = async (req, res) => {
         const deletedBlogPost = await blogService.deleteBlogPost(id)
 
         if(!deletedBlogPost) {
-            return res.status(404)
-                .send({
-                    statusCode: 404,
-                    message: 'Blog not found'
-                })
+            throw new BlogPostNotFoundException()
         }
 
         res.status(200)
