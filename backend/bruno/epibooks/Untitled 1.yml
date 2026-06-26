@@ -4,8 +4,19 @@ info:
   seq: 4
 
 http:
-  method: GET
+  method: POST
   url: http://localhost:9874/authors
+  body:
+    type: json
+    data: |-
+      {
+        "name":"Marco",
+        "surname":"verdi",
+        "password":"bellociccio",
+        "email":"marcoverdi@gmail.com",
+        "birthDate":"01-10-2003",
+        "avatar":"yoooooo"
+      }
   auth: inherit
 
 settings:

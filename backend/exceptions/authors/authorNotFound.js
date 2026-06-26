@@ -1,6 +1,6 @@
-const HttpExeption = require('../index')
+const HttpException = require('../index')
 
-class AuthorNotFoundException extends HttpExeption {
+class AuthorNotFoundException extends HttpException {
     constructor (
         message = 'the requested resource is not found',
         error = 'Not found',

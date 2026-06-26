@@ -1,6 +1,6 @@
-const HttpExeption = require('../index')
+const HttpException = require('../index')
 
-class CommentNotFoundException extends HttpExeption {
+class CommentNotFoundException extends HttpException {
     constructor (
         message = 'the requested resource is not found',
         error = 'Not found',

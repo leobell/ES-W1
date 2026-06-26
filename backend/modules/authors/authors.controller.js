@@ -48,6 +48,7 @@ const createAuthor = async (request, response, next) => {
     try {
         const { body } = request
         const author = await authorService.createAuthor(body)
+        
 
         sendWelcomeEmail(author.email, author.name)
             .catch(err => {

@@ -1,4 +1,6 @@
 const AuthorSchema = require('./authors.schema')
+const bcrypt = require('bcrypt')
+
 
 const getAuthors = async (page, pageSize) => {
     const authors = await AuthorSchema.find()
@@ -23,7 +25,9 @@ const getAuthor = async (id) => {
 }
 
 const createAuthor = async (body) => {
+    const saltRouds = 10
     const newAuthor = new AuthorSchema(body)
+    
     return await newAuthor.save()
 }
 
