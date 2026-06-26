@@ -25,7 +25,6 @@ const SignIn = () => {
             ...dataForm,
             [name]:value
         })
-        console.log(dataForm)
     }
 
     const onSubmit = async (e) => {
