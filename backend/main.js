@@ -1,10 +1,11 @@
 const express = require('express')
+require('dotenv').config()
 const cors = require('cors')
 const path = require('path')
 const startServer = require('./config/db')
 const dns = require('node:dns')
 dns.setServers(['1.1.1.1', '1.0.0.1']) 
-const PORT = 9874
+const PORT = process.env.PORT
 
 //middlewares
 const logger = require('./middlewares/logger')
