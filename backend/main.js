@@ -23,7 +23,10 @@ const server = express()
 server.use(express.json())
 server.use(logger)
 
-server.use(cors())
+server.use(cors({
+  origin: ['http://localhost:5173', 'https://striveblog-roan.vercel.app'],
+  credentials: true
+}))
 server.use('/upload',express.static(path.join(__dirname, 'upload')))
 
 server.use('/', authorsRoute)
