@@ -16,6 +16,7 @@ const authorsRoute = require('./modules/authors/authors.route')
 const blogRoute = require('./modules/blog/blog.route')
 const commentsRoute = require('./modules/comments/comments.route')
 const authRoute = require('./modules/auth/auth.route')
+const oauthGoogleRoute = require('./modules/oauth/google.oauth.route')
 
 const server = express()
 server.use(express.json())
@@ -28,6 +29,7 @@ server.use('/', authorsRoute)
 server.use('/', blogRoute)
 server.use('/', commentsRoute)
 server.use('/', authRoute)
+server.use('/', oauthGoogleRoute)
 
 server.use(errorHandler)
 

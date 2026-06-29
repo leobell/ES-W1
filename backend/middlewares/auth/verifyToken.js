@@ -2,7 +2,9 @@ const jwt = require('jsonwebtoken')
 const InvalidOrMissingTokenException = require('../../exceptions/auth/invalidOrMissingTokenException')
 
 const EXLUDED_ROUTES = [
-    '/login'
+    '/login',
+    '/auth/google',
+    'auth/google/callback'
 ]
 
 const verifyToken = async (req, res, next) => {

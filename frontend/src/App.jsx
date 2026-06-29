@@ -8,6 +8,7 @@ import Login from "./views/logIn/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "./views/signIn/SignIn";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import OauthSuccess from "./views/oauth/success/OauthSuccess";
 
 
 const App = () => {
@@ -29,10 +30,11 @@ const App = () => {
       <NavBar token={token} setToken={updateToken}  />
       <Routes>
         {/* ROTTE PUBBLICHE */}
-        <Route path="/" exact element={<Home />} />
+        <Route path="/" exact element={<Home token={token}/>} />
         <Route path="/blog/:id" element={<Blog />} />
         <Route path="/login" element={<Login onLoginSuccess={updateToken} />} />
         <Route path="/signIn" element={<SignIn />} />
+        <Route path="/auth/success" element={<OauthSuccess onLoginSuccess={updateToken} />} />
 
         {/* ROTTE PROTETTE PER UTENTI LOGGATI */}
         <Route element={<ProtectedRoute />}>

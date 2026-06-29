@@ -88,7 +88,7 @@ const NavBar = ({ token, setToken }) => {
         </div>       
       </Container>
     </Navbar>
-  );
-};
+  )
+}
 
 export default NavBar;

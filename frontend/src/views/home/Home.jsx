@@ -5,33 +5,33 @@ import "./styles.css";
 import { useEffect, useState } from "react";
 import { jwtDecode } from 'jwt-decode';
 
-const Home = props => {
+const Home = ({ token }) => {
 
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-
     if(token) {
       try {
         const decoded = jwtDecode(token)
-        if (decoded && decoded.name) {
-            setUser(decoded);
+        if (decoded && (decoded.email || decoded.id || decoded._id)) {
+          setUser(decoded)
         } else {
-            localStorage.removeItem('token');
+          localStorage.removeItem('token')
         }
       } catch (error) {
         console.error(`Token non valido: ${error}`)
         localStorage.removeItem('token')
       }
+    } else {
+      setUser(null)
     }
-  }, [])
+  }, [token])
 
   return (
     <Container fluid="sm">
       {user ? (
         <>
-          <h1 className="blog-main-title mb-3">Bentornato {user.name} sullo Strive Blog!</h1>
+          <h1 className="blog-main-title mb-3">Bentornato {user.displayName || (typeof user.name === 'string' ? user.name : user.name?.givenName) || "Utente"} sullo Strive Blog!</h1>
           <p>Hai effettuato l'accesso con successo.</p>
         </>
         
@@ -40,7 +40,7 @@ const Home = props => {
       )}
       <BlogList />
     </Container>
-  );
-};
+  )
+}
 
 export default Home;

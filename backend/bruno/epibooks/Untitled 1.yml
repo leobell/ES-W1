@@ -11,9 +11,9 @@ http:
     data: |-
       {
         "name":"Marco",
-        "surname":"verdi",
+        "surname":"verde",
         "password":"bellociccio",
-        "email":"marcoverdi@gmail.com",
+        "email":"marcoverde@gmail.com",
         "birthDate":"01-10-2003",
         "avatar":"yoooooo"
       }
